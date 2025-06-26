@@ -1,7 +1,7 @@
-import { model, Schema } from "mongoose";
-import { IBook } from "../interfaces/book.interfaces";
+import { Model, model, Schema } from "mongoose";
+import { BookInstanceMethods, IBook } from "../interfaces/book.interfaces";
 
-const booksSchema = new Schema<IBook>(
+const booksSchema = new Schema<IBook, Model<IBook>, BookInstanceMethods>(
   {
     title: { type: String, required: [true, "Title is missing"] },
     author: { type: String, required: [true, "Author name is missing"] },
@@ -38,5 +38,16 @@ const booksSchema = new Schema<IBook>(
     timestamps: true,
   }
 );
+
+// Methods
+booksSchema.method("updateAvailable", function updateAvailable(newAvailable) {
+  this.available = newAvailable;
+  return this.save();
+});
+
+booksSchema.method("updateCopies", function updateCopies(quantity) {
+  this.copies = this.copies - quantity;
+  return this.save();
+});
 
 export const Book = model<IBook>("Book", booksSchema);
