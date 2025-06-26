@@ -3,15 +3,20 @@ import { Server } from "http";
 import app from "./app";
 
 let server: Server;
-
-const port = 5010;
 require("dotenv").config();
+
+const port: number = parseInt(process.env.PORT || "5010", 10);
 
 async function main() {
   try {
-    await mongoose.connect(
-      `mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASS}@cluster0.9sxzsr9.mongodb.net/assignment003-librery?retryWrites=true&w=majority&appName=Cluster0`
-    );
+    const mongoUri = process.env.MONGODB_URI;
+    if (!mongoUri) {
+      throw new Error(
+        "MONGODB_URI is not defined in the environment variables."
+      );
+    }
+
+    await mongoose.connect(mongoUri);
     console.log("Connected to MongoDB using ODM Mongoose");
 
     server = app.listen(port, () => {
