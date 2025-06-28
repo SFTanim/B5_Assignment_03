@@ -14,11 +14,11 @@ export interface IBook extends Document {
   description: string;
   copies: number;
   available: boolean;
-  updateCopies(quantity: number): Promise<IBook>;
+  updateCopies(value: number, value2: string): Promise<IBook>;
   updateAvailable(availability: boolean): Promise<IBook>;
 }
 
 export interface BookInstanceMethods {
   updateAvailable(value: boolean): boolean;
-  updateCopies(value: number): number;
+  updateCopies(value: number, value2: string): number;
 }

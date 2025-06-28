@@ -92,13 +92,14 @@ booksRoutes.get("/:bookId", async (req: Request, res: Response) => {
 // Update
 booksRoutes.put("/:bookId", async (req: Request, res: Response) => {
   const bookId = req.params.bookId;
-  const updatedBody = req.body;
   try {
     const book = await Book.findById(bookId);
-    if (book) {
-      const updatedBook = await Book.findByIdAndUpdate(bookId, updatedBody, {
-        new: true,
-      });
+    const newCopies = parseInt(req.body.copies);
+    if (newCopies > 0) {
+      const newBook = new Book(book);
+      await newBook.updateCopies(newCopies, "increase");
+      const updatedBook = await newBook.updateAvailable(true);
+
       res.json({
         success: true,
         message: "Book updated successfully",
@@ -107,7 +108,7 @@ booksRoutes.put("/:bookId", async (req: Request, res: Response) => {
     } else {
       res.json({
         success: false,
-        message: "Book not found and update unsuccessful",
+        message: "Please input a positive number",
         data: book,
       });
     }

@@ -105,13 +105,13 @@ exports.booksRoutes.get("/:bookId", (req, res) => __awaiter(void 0, void 0, void
 // Update
 exports.booksRoutes.put("/:bookId", (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const bookId = req.params.bookId;
-    const updatedBody = req.body;
     try {
         const book = yield books_model_1.Book.findById(bookId);
-        if (book) {
-            const updatedBook = yield books_model_1.Book.findByIdAndUpdate(bookId, updatedBody, {
-                new: true,
-            });
+        const newCopies = parseInt(req.body.copies);
+        if (newCopies > 0) {
+            const newBook = new books_model_1.Book(book);
+            yield newBook.updateCopies(newCopies, "increase");
+            const updatedBook = yield newBook.updateAvailable(true);
             res.json({
                 success: true,
                 message: "Book updated successfully",
@@ -121,7 +121,7 @@ exports.booksRoutes.put("/:bookId", (req, res) => __awaiter(void 0, void 0, void
         else {
             res.json({
                 success: false,
-                message: "Book not found and update unsuccessful",
+                message: "Please input a positive number",
                 data: book,
             });
         }

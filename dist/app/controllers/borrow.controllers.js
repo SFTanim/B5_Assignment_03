@@ -23,7 +23,7 @@ exports.borrowRoutes.post("/", (req, res) => __awaiter(void 0, void 0, void 0, f
         const targetedBook = yield books_model_1.Book.findById(bookId);
         if (targetedBook && targetedBook.copies >= quantity) {
             const newBook = new books_model_1.Book(targetedBook);
-            const afterUpdatedCopies = yield newBook.updateCopies(quantity);
+            const afterUpdatedCopies = yield newBook.updateCopies(quantity, "decrease");
             if (afterUpdatedCopies.copies === 0) {
                 const bookMethod = yield newBook.updateAvailable(false);
             }

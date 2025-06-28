@@ -45,9 +45,16 @@ booksSchema.method("updateAvailable", function updateAvailable(newAvailable) {
   return this.save();
 });
 
-booksSchema.method("updateCopies", function updateCopies(quantity) {
-  this.copies = this.copies - quantity;
-  return this.save();
+booksSchema.method("updateCopies", function updateCopies(quantity, command) {
+  if (command === "decrease") {
+    this.copies = this.copies - quantity;
+    return this.save();
+  }
+
+  if (command === "increase") {
+    this.copies = this.copies + quantity;
+    return this.save();
+  }
 });
 
 export const Book = model<IBook>("Book", booksSchema);

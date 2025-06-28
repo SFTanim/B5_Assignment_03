@@ -11,7 +11,10 @@ borrowRoutes.post("/", async (req: Request, res: Response) => {
     const targetedBook = await Book.findById(bookId);
     if (targetedBook && targetedBook.copies >= quantity) {
       const newBook = new Book(targetedBook);
-      const afterUpdatedCopies = await newBook.updateCopies(quantity);
+      const afterUpdatedCopies = await newBook.updateCopies(
+        quantity,
+        "decrease"
+      );
       if (afterUpdatedCopies.copies === 0) {
         const bookMethod = await newBook.updateAvailable(false);
       }
