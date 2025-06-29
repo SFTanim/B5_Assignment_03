@@ -5,8 +5,8 @@ import { borrowRoutes } from "./app/controllers/borrow.controllers";
 const app: Application = express();
 app.use(express.json());
 
-app.use("/books", booksRoutes);
-app.use("/borrow", borrowRoutes);
+app.use("/api/books", booksRoutes);
+app.use("/api/borrow", borrowRoutes);
 
 app.use("/", (req: Request, res: Response) => {
   res.send("Library Management API with Express, TypeScript & MongoDB");

@@ -8,8 +8,8 @@ const books_controllers_1 = require("./app/controllers/books.controllers");
 const borrow_controllers_1 = require("./app/controllers/borrow.controllers");
 const app = (0, express_1.default)();
 app.use(express_1.default.json());
-app.use("/books", books_controllers_1.booksRoutes);
-app.use("/borrow", borrow_controllers_1.borrowRoutes);
+app.use("/api/books", books_controllers_1.booksRoutes);
+app.use("/api/borrow", borrow_controllers_1.borrowRoutes);
 app.use("/", (req, res) => {
     res.send("Library Management API with Express, TypeScript & MongoDB");
 });

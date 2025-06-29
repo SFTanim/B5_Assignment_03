@@ -66,9 +66,9 @@ http://localhost:5000/...
 
 You can test endpoints like:
 
-- `GET /books`
-- `POST /books`
-- `POST /borrow`
+- `GET  /api/books`
+- `POST /api/books`
+- `POST /api/borrow`
 - etc.
 
 ---
@@ -80,7 +80,7 @@ You can test endpoints like:
 
 ### 1. 📘 Create a Book
 
-**Endpoint:** `POST /books`
+**Endpoint:** `POST /api/books`
 
 Add a new book to the library.
 
@@ -102,7 +102,7 @@ Add a new book to the library.
 
 ### 2. 📖 Get All Books
 
-**Endpoint:** `GET /books`
+**Endpoint:** `GET /api/books`
 
 Supports filtering, sorting, and pagination.
 
@@ -113,13 +113,13 @@ Supports filtering, sorting, and pagination.
 - `sort` – `asc` or `desc`
 - `limit` – Number of results to return (default: 10)
 
-**Endpoint:** `/books?filter=FANTASY&sortBy=createdAt&sort=desc&limit=5`
+**Endpoint:** `/api/books?filter=FANTASY&sortBy=createdAt&sort=desc&limit=5`
 
 ---
 
 ### 3. 🔍 Get Book by ID
 
-**Endpoint:** `GET /books/:bookId`
+**Endpoint:** `GET /api/books/:bookId`
 
 Retrieve a specific book using its unique ID.
 
@@ -127,7 +127,7 @@ Retrieve a specific book using its unique ID.
 
 ### 4. ✏️ Update a Book
 
-**Endpoint:** `PUT /books/:bookId`
+**Endpoint:** `PUT /api/books/:bookId`
 
 Update any book’s data (partial updates allowed).
 
@@ -143,7 +143,7 @@ Update any book’s data (partial updates allowed).
 
 ### 5. 🗑️ Delete a Book
 
-**Endpoint:** `DELETE /books/:bookId`
+**Endpoint:** `DELETE /api/books/:bookId`
 
 Remove a book from the system.
 
@@ -151,7 +151,7 @@ Remove a book from the system.
 
 ### 6. 📦 Borrow a Book
 
-**Endpoint:** `POST /borrow`
+**Endpoint:** `POST /api/borrow`
 
 Borrow a book.
 
@@ -169,7 +169,7 @@ Borrow a book.
 
 ### 7. 📊 Borrowed Books Summary
 
-**Endpoint:** `GET /borrow`
+**Endpoint:** `GET /api/borrow`
 
 Will returns an aggregated summary of total quantity borrowed for each book along with title and ISBN.
 
@@ -179,12 +179,12 @@ Will returns an aggregated summary of total quantity borrowed for each book alon
 
 | Feature        | Endpoint         | Method | Description                           |
 | -------------- | ---------------- | ------ | ------------------------------------- |
-| Create Book    | `/books`     | POST   | Add a new book                        |
-| Get All Books  | `/books`     | GET    | Retrieve all books                    |
-| Get Book by ID | `/books/:id` | GET    | Fetch specific book details           |
-| Update Book    | `/books/:id` | PUT    | Update existing book info             |
-| Delete Book    | `/books/:id` | DELETE | Delete a book from the system         |
-| Borrow a Book  | `/borrow`    | POST   | Borrow one or more copies of a book   |
-| Borrow Summary | `/borrow`    | GET    | View total quantity borrowed per book |
+| Create Book    | `/api/books`     | POST   | Add a new book                        |
+| Get All Books  | `/api/books`     | GET    | Retrieve all books                    |
+| Get Book by ID | `/api/books/:id` | GET    | Fetch specific book details           |
+| Update Book    | `/api/books/:id` | PUT    | Update existing book info             |
+| Delete Book    | `/api/books/:id` | DELETE | Delete a book from the system         |
+| Borrow a Book  | `/api/borrow`    | POST   | Borrow one or more copies of a book   |
+| Borrow Summary | `/api/borrow`    | GET    | View total quantity borrowed per book |
 
 ---
