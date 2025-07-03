@@ -38,27 +38,24 @@ exports.booksRoutes.post("/", (req, res) => __awaiter(void 0, void 0, void 0, fu
     }
 }));
 exports.booksRoutes.get("/", (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    const { filter, sortBy, sort, limit = 10 } = req.query;
+    const { filter, sortBy, sort = "asc", limit = "10" } = req.query;
     try {
-        if (filter && sortBy && sort && limit) {
+        const resultLimit = Number(limit) || 10;
+        const query = {};
+        if (filter) {
+            query.genre = filter;
+        }
+        let sortOptions = {};
+        if (sortBy) {
             const sortOrder = sort === "desc" ? -1 : 1;
-            const books = yield books_model_1.Book.find({ genre: filter.toString() })
-                .sort({ [sortBy.toString()]: sortOrder })
-                .limit(Number(limit));
-            res.json({
-                success: true,
-                message: "Books retrieved successfully",
-                data: books,
-            });
+            sortOptions = { [sortBy.toString()]: sortOrder };
         }
-        else {
-            const books = yield books_model_1.Book.find();
-            res.json({
-                success: true,
-                message: "Books retrieved successfully",
-                data: books,
-            });
-        }
+        const books = yield books_model_1.Book.find(query).sort(sortOptions).limit(resultLimit);
+        res.json({
+            success: true,
+            message: "Books retrieved successfully",
+            data: books,
+        });
     }
     catch (error) {
         res.json({
